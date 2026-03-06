@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangagain.wx.mapper.UsersMapper">
+
+    <!--
+    select : 查询
+    update: 修改
+    delete: 删除
+    insert: 添加
+
+    resultType: 根据表中字段和类中属性一致时
+    resultMap: 根据表中字段和类中属性不一致时
+    -->
+
+    <resultMap id="a" type="com.wangagain.wx.entity.Users">
+        <id property="uId" column="uId"/>
+        <result property="uName" column="uName"/>
+        <result property="uPwd" column="uPwd"/>
+    </resultMap>
+
+    <select id="login" resultMap="a">
+        select * from users where uName=#{name}
+    </select>
+
+</mapper>
+
+
+<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangagain.wx.mapper.UsersMapper">
+
+</mapper>
+-->
