@@ -17,5 +17,4 @@ public interface UsersMapper {
      */
     public Users login(String name);
 
-
 }

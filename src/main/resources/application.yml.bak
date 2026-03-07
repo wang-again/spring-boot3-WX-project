@@ -1,7 +1,6 @@
 server:
   port: 9090
   servlet:
-    context-path: /wx-api  # 正确：这是字符串属性
+    context-path: /wx-api
     session:
-      timeout: 30m         # 正确：这是对象属性
-    # 不要在这里直接写 servlet: xxx
+      timeout: 30m
