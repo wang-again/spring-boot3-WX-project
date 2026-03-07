@@ -1,8 +1,8 @@
-package com.wangagain.wx.service.impl;
+package com.wangagain.wx.service.impl.admin;
 
 import com.wangagain.wx.entity.Users;
 import com.wangagain.wx.mapper.UsersMapper;
-import com.wangagain.wx.service.UsersService;
+import com.wangagain.wx.service.admin.UsersService;
 import com.wangagain.wx.utils.ResultLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

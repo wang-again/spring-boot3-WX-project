@@ -1,6 +1,6 @@
-package com.wangagain.wx.controller;
+package com.wangagain.wx.controller.admin;
 
-import com.wangagain.wx.service.UsersService;
+import com.wangagain.wx.service.admin.UsersService;
 import com.wangagain.wx.utils.ResultLogin;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController // @Controller + @ResponseBody
 @CrossOrigin // 解决跨域问题
+@RequestMapping("/admin")
 public class UsersController {
 
     // 创建业务层对象
