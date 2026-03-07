@@ -18,7 +18,7 @@ public class UsersController {
     private UsersService usersService;
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public ResultLogin login(String name, String password){
+    public ResultLogin login(String name, String password) throws Exception {
         System.out.println("用户名："+name+" 密码："+password);
         // 调用业务层
         return usersService.login(name, password);
