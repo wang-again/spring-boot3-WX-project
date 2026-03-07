@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 @Mapper
 public interface UsersMapper {
@@ -19,4 +21,6 @@ public interface UsersMapper {
     Users login(@Param("uName") String name, @Param("uPwd") String password);
     int register(@Param("uName") String name, @Param("uPwd") String password);
     Users findUserExist(@Param("uName") String name);
+    @Select("SELECT uId,uName,uPwd FROM account")
+    ArrayList<Users> allUsers();
 }
