@@ -4,8 +4,9 @@ import com.wangagain.wx.service.admin.UsersService;
 import com.wangagain.wx.utils.ResultLogin;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController // @Controller + @ResponseBody
@@ -17,12 +18,32 @@ public class UsersController {
     @Resource
     private UsersService usersService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public ResultLogin login(String name, String password){
-        System.out.println("用户名："+name+" 密码："+password);
+    @PostMapping("/login")
+    public ResultLogin login(@RequestBody LoginRequest loginRequest){
+        System.out.println("用户名："+loginRequest.getName()+" 密码："+loginRequest.getPassword());
         // 调用业务层
-        return usersService.login(name, password);
-
-
+        return usersService.login(loginRequest.getName(), loginRequest.getPassword());
+    }
+    
+    // 登录请求对象
+    public static class LoginRequest {
+        private String name;
+        private String password;
+        
+        public String getName() {
+            return name;
+        }
+        
+        public void setName(String name) {
+            this.name = name;
+        }
+        
+        public String getPassword() {
+            return password;
+        }
+        
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 }
