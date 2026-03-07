@@ -22,7 +22,11 @@ public class UsersController {
     public ResultLogin login(@RequestBody LoginRequest loginRequest){
         System.out.println("用户名："+loginRequest.getName()+" 密码："+loginRequest.getPassword());
         // 调用业务层
-        return usersService.login(loginRequest.getName(), loginRequest.getPassword());
+        try {
+            return usersService.login(loginRequest.getName(), loginRequest.getPassword());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     
     // 登录请求对象
