@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UsersServiceImpl implements UsersService {
-    private final String AES_TOKEN = "asdfa48210";
+    private final String AES_TOKEN = "asdfa48210123456";
     @Autowired
     private UsersMapper usersMapper;
+    
     @Override
     public ResultLogin login(String name, String password) throws Exception {
         Users user = usersMapper.findUserExist(name);
@@ -28,7 +29,8 @@ public class UsersServiceImpl implements UsersService {
                 return new ResultLogin(1001,"密码错误", null);
             }
             return new ResultLogin(1002,"登录成功", user1);
-    }}
+        }
+    }
 
     @Override
     public ResultLogin register(String name, String password) throws Exception {
@@ -39,4 +41,4 @@ public class UsersServiceImpl implements UsersService {
         }
         return new ResultLogin(1001,"注册成功", null);
     }
-    }
+}
