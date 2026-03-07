@@ -16,11 +16,11 @@ public interface UsersMapper {
     /**
      * 登录功能
      * @param name
+     * @param password
      * @return
      */
     Users login(@Param("uName") String name, @Param("uPwd") String password);
     int register(@Param("uName") String name, @Param("uPwd") String password);
     Users findUserExist(@Param("uName") String name);
-    @Select("SELECT uId,uName,uPwd FROM account")
     ArrayList<Users> allUsers();
 }

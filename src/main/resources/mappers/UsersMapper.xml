@@ -31,5 +31,9 @@
     <select id="findUserExist" resultMap="userMap">
         SELECT uId,uName,uPwd FROM account WHERE uName = #{uName}
     </select>
+    
+    <select id="allUsers" resultMap="userMap">
+        SELECT uId,uName,uPwd FROM account
+    </select>
 
 </mapper>
