@@ -1,6 +1,6 @@
 package com.wangagain.wx.controller.admin;
 
-import com.wangagain.wx.service.admin.UsersService;
+import com.wangagain.wx.service.admin.AccountService;
 import com.wangagain.wx.utils.ResultLogin;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,14 +16,14 @@ public class UsersController {
 
     // 创建业务层对象
     @Resource
-    private UsersService usersService;
+    private AccountService accountService;
 
     @PostMapping("/login")
     public ResultLogin login(@RequestBody LoginRequest loginRequest){
         System.out.println("用户名："+loginRequest.getName()+" 密码："+loginRequest.getPassword());
         // 调用业务层
         try {
-            return usersService.login(loginRequest.getName(), loginRequest.getPassword());
+            return accountService.login(loginRequest.getName(), loginRequest.getPassword());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

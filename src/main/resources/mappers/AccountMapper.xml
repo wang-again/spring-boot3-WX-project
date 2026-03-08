@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wangagain.wx.mapper.UsersMapper">
+<mapper namespace="com.wangagain.wx.mapper.AccountMapper">
 
     <!--
     select : 查询
@@ -14,7 +14,7 @@
     resultMap: 根据表中字段和类中属性不一致时
     -->
 
-    <resultMap id="userMap" type="com.wangagain.wx.entity.Users">
+    <resultMap id="userMap" type="com.wangagain.wx.entity.Account">
         <id property="uId" column="uId"/>
         <result property="uName" column="uName"/>
         <result property="uPwd" column="uPwd"/>

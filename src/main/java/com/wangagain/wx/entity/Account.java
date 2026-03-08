@@ -1,14 +1,14 @@
 package com.wangagain.wx.entity;
 
-public class Users {
+public class Account {
     private int uId;
     private String uName;
     private String uPwd;
     
-    public Users() {
+    public Account() {
     }
     
-    public Users(int uId, String uName, String uPwd) {
+    public Account(int uId, String uName, String uPwd) {
         this.uId = uId;
         this.uName = uName;
         this.uPwd = uPwd;

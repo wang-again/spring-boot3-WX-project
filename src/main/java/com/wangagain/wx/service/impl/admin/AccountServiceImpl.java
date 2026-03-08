@@ -1,22 +1,22 @@
 package com.wangagain.wx.service.impl.admin;
 
-import com.wangagain.wx.entity.Users;
-import com.wangagain.wx.mapper.UsersMapper;
-import com.wangagain.wx.service.admin.UsersService;
+import com.wangagain.wx.entity.Account;
+import com.wangagain.wx.mapper.AccountMapper;
+import com.wangagain.wx.service.admin.AccountService;
 import com.wangagain.wx.utils.ResultLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+public class AccountServiceImpl implements AccountService {
     private final String AES_TOKEN = "asdfa48210123456";
     @Autowired
-    private UsersMapper usersMapper;
+    private AccountMapper accountMapper;
     
     @Override
     public ResultLogin login(String name, String password) throws Exception {
         try {
-            Users user = usersMapper.findUserExist(name);
+            Account user = accountMapper.findUserExist(name);
             // 暂时注释掉AES加密，使用明文密码验证
             // String privatePassword = AESUtil.encrypt(password, AES_TOKEN);
             String privatePassword = password;
@@ -25,7 +25,7 @@ public class UsersServiceImpl implements UsersService {
                 return new ResultLogin(1000,"用户名不存在", null);
             }else{
                 // 用户存在
-                Users user1 = usersMapper.login(name,privatePassword);
+                Account user1 = accountMapper.login(name,privatePassword);
                 if(user1 == null){
                     // 密码错误
                     return new ResultLogin(1001,"密码错误", null);
@@ -42,7 +42,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public ResultLogin register(String name, String password) throws Exception {
         String privatePassword = password;
-        int register = usersMapper.register(name, privatePassword);
+        int register = accountMapper.register(name, privatePassword);
         if(register == 0){
             return new ResultLogin(1000,"用户名存在", null);
         }

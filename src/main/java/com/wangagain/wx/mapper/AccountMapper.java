@@ -2,7 +2,7 @@ package com.wangagain.wx.mapper;
 
 // 接口
 
-import com.wangagain.wx.entity.Users;
+import com.wangagain.wx.entity.Account;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @Component
 @Mapper
-public interface UsersMapper {
+public interface AccountMapper {
 
     /**
      * 登录功能
@@ -19,8 +19,8 @@ public interface UsersMapper {
      * @param password
      * @return
      */
-    Users login(@Param("uName") String name, @Param("uPwd") String password);
+    Account login(@Param("uName") String name, @Param("uPwd") String password);
     int register(@Param("uName") String name, @Param("uPwd") String password);
-    Users findUserExist(@Param("uName") String name);
-    ArrayList<Users> allUsers();
+    Account findUserExist(@Param("uName") String name);
+    ArrayList<Account> allUsers();
 }
