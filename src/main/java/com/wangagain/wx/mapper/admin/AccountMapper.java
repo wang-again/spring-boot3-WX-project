@@ -1,8 +1,6 @@
-package com.wangagain.wx.mapper;
+package com.wangagain.wx.mapper.admin;
 
-// 接口
-
-import com.wangagain.wx.entity.Account;
+import com.wangagain.wx.entity.admin.Account;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

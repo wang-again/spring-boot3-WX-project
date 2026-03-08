@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController // @Controller + @ResponseBody
 @CrossOrigin // 解决跨域问题
 @RequestMapping("/admin")
-public class UsersController {
+public class AccountController {
 
     // 创建业务层对象
     @Resource

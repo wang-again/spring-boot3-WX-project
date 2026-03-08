@@ -1,7 +1,7 @@
 package com.wangagain.wx.service.impl.admin;
 
-import com.wangagain.wx.entity.Account;
-import com.wangagain.wx.mapper.AccountMapper;
+import com.wangagain.wx.entity.admin.Account;
+import com.wangagain.wx.mapper.admin.AccountMapper;
 import com.wangagain.wx.service.admin.AccountService;
 import com.wangagain.wx.utils.ResultLogin;
 import org.springframework.beans.factory.annotation.Autowired;
