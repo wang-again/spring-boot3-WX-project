@@ -8,6 +8,6 @@
         select * from wx_user where openid = #{openid}
     </select>
     <insert id="insert" parameterType="com.wangagain.wx.entity.miniprogram.WxUser">
-        insert into wx_user (openid, create_time) values (#{openid}, #{createTime})
+        insert into wx_user (openid, token, create_time) values (#{openid}, #{token}, #{createTime})
     </insert>
 </mapper>

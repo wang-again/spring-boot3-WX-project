@@ -18,7 +18,14 @@ public class MiniProgramController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ResultLogin login(String code) {
-        System.out.println("微信登录code：" + code);
-        return wxUserService.login(code);
+        try {
+            System.out.println("微信登录code：" + code);
+            // 调用服务层处理登录
+            return wxUserService.login(code);
+        } catch (Exception e) {
+            // 捕获未处理的异常
+            e.printStackTrace();
+            return new ResultLogin(2002, "登录异常：系统内部错误", null);
+        }
     }
 }
