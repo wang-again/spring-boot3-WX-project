@@ -18,8 +18,9 @@ public class WxUserServiceImpl implements WxUserService {
     @Autowired
     private WxUserMapper wxUserMapper;
 
-    private final String APPID = "your_appid";
-    private final String APPSECRET = "your_appsecret";
+    // 微信公众号的appid和appsecret, 请替换成自己的, 请勿泄露
+    private final String APPID = "APPID";
+    private final String APPSECRET = "APPSECRET";
     private final String WX_LOGIN_URL = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
 
     @Override
@@ -69,8 +70,12 @@ public class WxUserServiceImpl implements WxUserService {
                     return new ResultLogin(2000, "微信登录失败：用户创建失败", null);
                 }
             } else {
-                // 更新现有用户的token
+                // 更新现有用户的token并保存到数据库
                 user.setToken(token);
+                int updateResult = wxUserMapper.update(user);
+                if (updateResult <= 0) {
+                    return new ResultLogin(2000, "微信登录失败：用户更新失败", null);
+                }
             }
 
             return new ResultLogin(2001, "登录成功", user);

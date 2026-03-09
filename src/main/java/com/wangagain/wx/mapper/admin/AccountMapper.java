@@ -21,4 +21,6 @@ public interface AccountMapper {
     int register(@Param("uName") String name, @Param("uPwd") String password);
     Account findUserExist(@Param("uName") String name);
     ArrayList<Account> allUsers();
+    // 更新密码
+    int updatePassword(@Param("uId") int uId, @Param("uPwd") String password);
 }
