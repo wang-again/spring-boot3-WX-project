@@ -11,7 +11,11 @@ import java.util.Date;
 @Data
 public class WxReport {
     private int id;
-    private String report;
-    private Date time;
+    private String reporter;
+    private String target;
+    private String type;
+    private String content;
+    private String status;
+    private Date create_time;
 
 }

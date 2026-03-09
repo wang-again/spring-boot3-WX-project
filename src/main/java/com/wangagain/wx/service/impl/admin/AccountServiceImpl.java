@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    private final String AES_TOKEN = "asdfa48210123456";
     @Autowired
     private AccountMapper accountMapper;
     @Autowired
@@ -24,12 +23,13 @@ public class AccountServiceImpl implements AccountService {
             // 用户不存在
                 return new ResultLogin(1000, "用户名不存在", null);
             }
+            Account user1 = accountMapper.login(name, password);
             // 用户存在
-            if (passwordEncoder.matches(password, user.getuPwd())) {
+            if (user1== null) {
             // 密码错误
                 return new ResultLogin(1001, "密码错误", null);
             }
-            return new ResultLogin(1002, "登录成功", user);
+            return new ResultLogin(1002, "登录成功", user1);
         } catch (Exception e) {
             // 数据库表不存在或其他错误
             System.out.println("登录错误: " + e.getMessage());
