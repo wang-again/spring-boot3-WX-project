@@ -36,4 +36,7 @@
         SELECT uId,uName,uPwd FROM account
     </select>
 
+    <update id="updatePassword">
+        UPDATE account SET uPwd = #{uPwd} WHERE uId = #{uId}
+    </update>
 </mapper>

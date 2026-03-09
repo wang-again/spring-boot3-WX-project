@@ -10,12 +10,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 public class WxReport {
-    private int id;
-    private String reporter;
-    private String target;
-    private String type;
-    private String content;
-    private String status;
-    private Date create_time;
-
+    private int id; // 举报id
+    private String reporter;    // 举报人
+    private String target;  // 被举报人
+    private String type;    // 举报类型
+    private String content; // 举报内容
+    private String status;  // 状态
+    private Date create_time; // 创建时间
 }

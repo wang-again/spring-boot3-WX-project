@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping("/miniprogram")
-public class MiniProgramController {
+public class WxProgramController {
 
     @Resource
     private WxUserService wxUserService;

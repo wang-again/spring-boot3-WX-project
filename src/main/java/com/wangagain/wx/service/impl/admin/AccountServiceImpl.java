@@ -20,16 +20,15 @@ public class AccountServiceImpl implements AccountService {
         try {
             Account user = accountMapper.findUserExist(name);
             if (user == null) {
-            // 用户不存在
+                // 用户不存在
                 return new ResultLogin(1000, "用户名不存在", null);
             }
-            Account user1 = accountMapper.login(name, password);
-            // 用户存在
-            if (user1== null) {
-            // 密码错误
+            // 使用密码编码器验证密码
+            if (!passwordEncoder.matches(password, user.getuPwd())) {
+                // 密码错误
                 return new ResultLogin(1001, "密码错误", null);
             }
-            return new ResultLogin(1002, "登录成功", user1);
+            return new ResultLogin(1002, "登录成功", user);
         } catch (Exception e) {
             // 数据库表不存在或其他错误
             System.out.println("登录错误: " + e.getMessage());
