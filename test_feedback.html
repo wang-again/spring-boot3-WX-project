@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>举报反馈接口测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .button-group {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        input, textarea {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>举报反馈接口测试</h1>
+    
+    <div class="button-group">
+        <button onclick="testGetAllFeedbacks()">查询所有反馈</button>
+    </div>
+    
+    <h2>提交反馈</h2>
+    <div class="form-group">
+        <label>用户ID:</label>
+        <input type="number" id="userId" value="1">
+    </div>
+    <div class="form-group">
+        <label>举报类型:</label>
+        <input type="text" id="type" value="违规内容">
+    </div>
+    <div class="form-group">
+        <label>举报内容:</label>
+        <textarea id="content" rows="4">测试举报内容</textarea>
+    </div>
+    <button onclick="testSubmitFeedback()">提交反馈</button>
+    
+    <h2>测试结果</h2>
+    <div id="result">点击按钮测试接口...</div>
+
+    <script>
+        const API_BASE = 'http://localhost:9090';
+        
+        async function testGetAllFeedbacks() {
+            try {
+                const response = await fetch(`${API_BASE}/getAllFeedbacks`);
+                const data = await response.json();
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('result').textContent = '请求失败: ' + error;
+            }
+        }
+        
+        async function testSubmitFeedback() {
+            const userId = document.getElementById('userId').value;
+            const type = document.getElementById('type').value;
+            const content = document.getElementById('content').value;
+            
+            try {
+                const response = await fetch(
+                    `${API_BASE}/submitFeedback?userId=${userId}&type=${encodeURIComponent(type)}&content=${encodeURIComponent(content)}`,
+                    { method: 'POST' }
+                );
+                const data = await response.json();
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('result').textContent = '请求失败: ' + error;
+            }
+        }
+    </script>
+</body>
+</html>
