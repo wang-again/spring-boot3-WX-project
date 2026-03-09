@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.1//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangagain.wx.mapper.miniprogram.FeedbackMapper">
+
+    <resultMap id="feedbackMap" type="com.wangagain.wx.entity.miniprogram.Feedback">
+        <id property="fId" column="f_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="type" column="type"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="handleTime" column="handle_time"/>
+        <result property="handler" column="handler"/>
+    </resultMap>
+
+    <!-- 添加反馈 -->
+    <insert id="addFeedback" parameterType="com.wangagain.wx.entity.miniprogram.Feedback">
+        insert into feedback (user_id, type, content, status, create_time)
+        values (#{userId}, #{type}, #{content}, #{status}, #{createTime})
+    </insert>
+
+    <!-- 根据ID查询反馈 -->
+    <select id="getFeedbackById" parameterType="int" resultMap="feedbackMap">
+        select * from feedback where f_id = #{fId}
+    </select>
+
+    <!-- 查询所有反馈 -->
+    <select id="getAllFeedbacks" resultMap="feedbackMap">
+        select * from feedback order by create_time desc
+    </select>
+
+    <!-- 更新反馈状态 -->
+    <update id="updateFeedbackStatus" parameterType="com.wangagain.wx.entity.miniprogram.Feedback">
+        update feedback
+        set status = #{status}, handle_time = #{handleTime}, handler = #{handler}
+        where f_id = #{fId}
+    </update>
+
+    <!-- 根据用户ID查询反馈 -->
+    <select id="getFeedbacksByUserId" parameterType="int" resultMap="feedbackMap">
+        select * from feedback where user_id = #{userId} order by create_time desc
+    </select>
+
+</mapper>
