@@ -6,15 +6,17 @@ public class WxUser {
     private int id;
     private String openid;
     private String token;
+    private String nickname;
     private Date createTime;
     
     public WxUser() {
     }
     
-    public WxUser(int id, String openid, String token, Date createTime) {
+    public WxUser(int id, String openid, String token, String nickname, Date createTime) {
         this.id = id;
         this.openid = openid;
         this.token = token;
+        this.nickname = nickname;
         this.createTime = createTime;
     }
     
@@ -40,6 +42,14 @@ public class WxUser {
     
     public void setToken(String token) {
         this.token = token;
+    }
+    
+    public String getNickname() {
+        return nickname;
+    }
+    
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
     
     public Date getCreateTime() {

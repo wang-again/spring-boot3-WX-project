@@ -24,7 +24,7 @@ public class WxUserServiceImpl implements WxUserService {
     private final String WX_LOGIN_URL = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
 
     @Override
-    public ResultLogin login(String code) {
+    public ResultLogin login(String code, String nickname) {
         try {
             // 验证code参数
             if (code == null || code.isEmpty()) {
@@ -64,14 +64,16 @@ public class WxUserServiceImpl implements WxUserService {
                 user = new WxUser();
                 user.setOpenid(openid);
                 user.setToken(token);
+                user.setNickname(nickname);
                 user.setCreateTime(new Date());
                 int insertResult = wxUserMapper.insert(user);
                 if (insertResult <= 0) {
                     return new ResultLogin(2000, "微信登录失败：用户创建失败", null);
                 }
             } else {
-                // 更新现有用户的token并保存到数据库
+                // 更新现有用户的token和昵称并保存到数据库
                 user.setToken(token);
+                user.setNickname(nickname);
                 int updateResult = wxUserMapper.update(user);
                 if (updateResult <= 0) {
                     return new ResultLogin(2000, "微信登录失败：用户更新失败", null);
