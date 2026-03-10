@@ -1,10 +1,8 @@
 package com.wangagain.wx.entity.miniprogram;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,5 +14,8 @@ public class WxReport {
     private String type;    // 举报类型
     private String content; // 举报内容
     private String status;  // 状态
-    private Date create_time; // 创建时间
+    private LocalDateTime create_time;// 创建时间
+    private String location;
+    private String media;
+    private String phone;
 }

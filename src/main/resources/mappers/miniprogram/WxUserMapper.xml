@@ -8,9 +8,9 @@
         select * from wx_user where openid = #{openid}
     </select>
     <insert id="insert" parameterType="com.wangagain.wx.entity.miniprogram.WxUser">
-        insert into wx_user (openid, token, create_time) values (#{openid}, #{token}, #{createTime})
+        insert into wx_user (openid, token, nickname, create_time) values (#{openid}, #{token}, #{nickname}, #{createTime})
     </insert>
     <update id="update" parameterType="com.wangagain.wx.entity.miniprogram.WxUser">
-        update wx_user set token = #{token} where openid = #{openid}
+        update wx_user set token = #{token}, nickname = #{nickname} where openid = #{openid}
     </update>
 </mapper>

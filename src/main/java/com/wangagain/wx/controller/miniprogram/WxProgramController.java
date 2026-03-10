@@ -17,11 +17,12 @@ public class WxProgramController {
     private WxUserService wxUserService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ResultLogin login(String code) {
+    public ResultLogin login(String code, String nickname) {
         try {
             System.out.println("微信登录code：" + code);
+            System.out.println("微信用户昵称：" + nickname);
             // 调用服务层处理登录
-            return wxUserService.login(code);
+            return wxUserService.login(code, nickname);
         } catch (Exception e) {
             // 捕获未处理的异常
             e.printStackTrace();
