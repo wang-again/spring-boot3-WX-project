@@ -9,12 +9,15 @@ import org.springframework.stereotype.Component;
 public interface WxReportMapper {
     @Select("select * from report where content=#{content}")
     WxReport findReportIsExist(@Param("content") String content);
-    @Select("select * from report where reporter= #{reporter}")
-    WxReport findReportByReporter(@Param("reporter") String reporter);
+    @Select("select * from report where user_id= #{user_id}")
+    WxReport findReportByReporter(@Param("user_id") int user_id);
     @Select("select * from report where id= #{id}")
     WxReport findReportById(@Param("id") int id);
-    @Insert("insert into report(reporter,target,type,content,status) values(#{reporter},#{target},#{type},#{content},'pending'")
-    int insertReport(@Param("reporter") String reporter, @Param("target") String target, @Param("type") String type, @Param("content") String content);
+    @Insert("insert into report(user_id,target_name,phone,type,content,status) values(#{user_id},#{target_name},#{phone},#{type},#{content},'pending')")
+    int insertReport(@Param("user_id") int user_id, @Param("target_name") String target_name,@Param("phone") String phone ,@Param("type") String type, @Param("content") String content);
     @Update("update report set status=#{status} where id=#{id}")
     int updateReportStatus(@Param("id") int id, @Param("status") String status);
+    @Update("update report set phone=#{phone} where id=#{id}")
+    int updateReportPhone(@Param("id") int id,@Param("phone") String phone);
+
 }
