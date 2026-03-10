@@ -19,8 +19,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public ResultLogin submitFeedback(Feedback feedback) {
         try {
-            // 设置默认状态和创建时间
-            feedback.setStatus("待处理");
             feedback.setCreateTime(new Date());
             System.out.println("提交反馈前：" + feedback);
             int result = feedbackMapper.addFeedback(feedback);
@@ -38,9 +36,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public ResultLogin getFeedbackById(int fId) {
+    public ResultLogin getFeedbackById(int id) {
         try {
-            Feedback feedback = feedbackMapper.getFeedbackById(fId);
+            Feedback feedback = feedbackMapper.getFeedbackById(id);
             if (feedback != null) {
                 return new ResultLogin(1001, "查询成功", feedback);
             } else {
@@ -64,10 +62,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public ResultLogin updateFeedbackStatus(Feedback feedback) {
+    public ResultLogin updateFeedback(Feedback feedback) {
         try {
-            // 设置处理时间
-            feedback.setHandleTime(new Date());
             int result = feedbackMapper.updateFeedbackStatus(feedback);
             if (result > 0) {
                 return new ResultLogin(1001, "更新成功", feedback);
@@ -80,9 +76,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public ResultLogin getFeedbacksByUserId(int userId) {
+    public ResultLogin getFeedbacksByReportId(int reportId) {
         try {
-            List<Feedback> feedbacks = feedbackMapper.getFeedbacksByUserId(userId);
+            List<Feedback> feedbacks = feedbackMapper.getFeedbacksByUserId(reportId);
             return new ResultLogin(1001, "查询成功", feedbacks);
         } catch (Exception e) {
             return new ResultLogin(1002, "系统错误", null);

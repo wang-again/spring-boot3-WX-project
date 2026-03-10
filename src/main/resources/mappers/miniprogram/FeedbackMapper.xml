@@ -5,42 +5,38 @@
 <mapper namespace="com.wangagain.wx.mapper.miniprogram.FeedbackMapper">
 
     <resultMap id="feedbackMap" type="com.wangagain.wx.entity.miniprogram.Feedback">
-        <id property="fId" column="f_id"/>
-        <result property="userId" column="user_id"/>
-        <result property="type" column="type"/>
+        <id property="id" column="id"/>
+        <result property="reportId" column="report_id"/>
         <result property="content" column="content"/>
-        <result property="status" column="status"/>
         <result property="createTime" column="create_time"/>
-        <result property="handleTime" column="handle_time"/>
-        <result property="handler" column="handler"/>
     </resultMap>
 
     <!-- 添加反馈 -->
     <insert id="addFeedback" parameterType="com.wangagain.wx.entity.miniprogram.Feedback">
-        insert into feedback (user_id, type, content, status, create_time)
-        values (#{userId}, #{type}, #{content}, #{status}, #{createTime})
+        insert into feedback (report_id, content, create_time)
+        values (#{reportId}, #{content}, #{createTime})
     </insert>
 
     <!-- 根据ID查询反馈 -->
     <select id="getFeedbackById" parameterType="int" resultMap="feedbackMap">
-        select * from feedback where f_id = #{fId}
+        select id, report_id, content, create_time from feedback where id = #{id}
     </select>
 
     <!-- 查询所有反馈 -->
     <select id="getAllFeedbacks" resultMap="feedbackMap">
-        select * from feedback order by create_time desc
+        select id, report_id, content, create_time from feedback order by create_time desc
     </select>
 
-    <!-- 更新反馈状态 -->
+    <!-- 更新反馈状态（暂时保留接口） -->
     <update id="updateFeedbackStatus" parameterType="com.wangagain.wx.entity.miniprogram.Feedback">
         update feedback
-        set status = #{status}, handle_time = #{handleTime}, handler = #{handler}
-        where f_id = #{fId}
+        set content = #{content}
+        where id = #{id}
     </update>
 
-    <!-- 根据用户ID查询反馈 -->
+    <!-- 根据用户ID查询反馈（暂时保留接口，使用report_id代替） -->
     <select id="getFeedbacksByUserId" parameterType="int" resultMap="feedbackMap">
-        select * from feedback where user_id = #{userId} order by create_time desc
+        select id, report_id, content, create_time from feedback where report_id = #{userId} order by create_time desc
     </select>
 
 </mapper>

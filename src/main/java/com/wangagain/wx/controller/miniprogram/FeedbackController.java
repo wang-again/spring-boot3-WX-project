@@ -16,65 +16,35 @@ public class FeedbackController {
     @Resource
     private FeedbackService feedbackService;
 
-    /**
-     * 提交举报反馈
-     * @param userId
-     * @param type
-     * @param content
-     * @return
-     */
     @RequestMapping(value = "/submitFeedback", method = RequestMethod.POST)
-    public ResultLogin submitFeedback(int userId, String type, String content) {
+    public ResultLogin submitFeedback(int reportId, String content) {
         Feedback feedback = new Feedback();
-        feedback.setUserId(userId);
-        feedback.setType(type);
+        feedback.setReportId(reportId);
         feedback.setContent(content);
         return feedbackService.submitFeedback(feedback);
     }
 
-    /**
-     * 根据ID查询反馈
-     * @param fId
-     * @return
-     */
     @RequestMapping(value = "/getFeedbackById", method = RequestMethod.GET)
-    public ResultLogin getFeedbackById(int fId) {
-        return feedbackService.getFeedbackById(fId);
+    public ResultLogin getFeedbackById(int id) {
+        return feedbackService.getFeedbackById(id);
     }
 
-    /**
-     * 查询所有反馈
-     * @return
-     */
     @RequestMapping(value = "/getAllFeedbacks", method = RequestMethod.GET)
     public ResultLogin getAllFeedbacks() {
         return feedbackService.getAllFeedbacks();
     }
 
-    /**
-     * 更新反馈状态
-     * @param fId
-     * @param status
-     * @param handler
-     * @return
-     */
-    @RequestMapping(value = "/updateFeedbackStatus", method = RequestMethod.POST)
-    public ResultLogin updateFeedbackStatus(int fId, String status, String handler) {
+    @RequestMapping(value = "/updateFeedback", method = RequestMethod.POST)
+    public ResultLogin updateFeedback(int id, String content) {
         Feedback feedback = new Feedback();
-        feedback.setfId(fId);
-        feedback.setStatus(status);
-        feedback.setHandler(handler);
-        return feedbackService.updateFeedbackStatus(feedback);
+        feedback.setId(id);
+        feedback.setContent(content);
+        return feedbackService.updateFeedback(feedback);
     }
 
-    /**
-     * 根据用户ID查询反馈
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/getFeedbacksByUserId", method = RequestMethod.GET)
-    public ResultLogin getFeedbacksByUserId(int userId) {
-        return feedbackService.getFeedbacksByUserId(userId);
+    @RequestMapping(value = "/getFeedbacksByReportId", method = RequestMethod.GET)
+    public ResultLogin getFeedbacksByReportId(int reportId) {
+        return feedbackService.getFeedbacksByReportId(reportId);
     }
 
 }

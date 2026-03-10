@@ -5,38 +5,14 @@ import com.wangagain.wx.utils.ResultLogin;
 
 public interface FeedbackService {
 
-    /**
-     * 提交举报反馈
-     * @param feedback
-     * @return
-     */
     public ResultLogin submitFeedback(Feedback feedback);
 
-    /**
-     * 根据ID查询反馈
-     * @param fId
-     * @return
-     */
-    public ResultLogin getFeedbackById(int fId);
+    public ResultLogin getFeedbackById(int id);
 
-    /**
-     * 查询所有反馈
-     * @return
-     */
     public ResultLogin getAllFeedbacks();
 
-    /**
-     * 更新反馈状态
-     * @param feedback
-     * @return
-     */
-    public ResultLogin updateFeedbackStatus(Feedback feedback);
+    public ResultLogin updateFeedback(Feedback feedback);
 
-    /**
-     * 根据用户ID查询反馈
-     * @param userId
-     * @return
-     */
-    public ResultLogin getFeedbacksByUserId(int userId);
+    public ResultLogin getFeedbacksByReportId(int reportId);
 
 }
