@@ -19,4 +19,7 @@ public interface FeedbackMapper {
     
     // 根据用户ID查询反馈
     List<Feedback> getFeedbacksByUserId(int userId);
+    
+    // 根据举报ID查询反馈
+    Feedback getFeedbackByReportId(int reportId);
 }

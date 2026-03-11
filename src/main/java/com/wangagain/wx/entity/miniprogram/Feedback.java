@@ -12,6 +12,7 @@ import java.util.Date;
 public class Feedback {
     private int fId; // 反馈ID
     private int userId; // 举报用户ID
+    private int reportId; // 关联的举报ID
     private String type; // 举报类型
     private String content; // 举报内容
     private String status; // 处理状态
@@ -33,6 +34,14 @@ public class Feedback {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getReportId() {
+        return reportId;
+    }
+
+    public void setReportId(int reportId) {
+        this.reportId = reportId;
     }
 
     public String getType() {

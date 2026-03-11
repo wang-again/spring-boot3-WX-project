@@ -7,6 +7,7 @@
     <resultMap id="feedbackMap" type="com.wangagain.wx.entity.miniprogram.Feedback">
         <id property="fId" column="f_id"/>
         <result property="userId" column="user_id"/>
+        <result property="reportId" column="report_id"/>
         <result property="type" column="type"/>
         <result property="content" column="content"/>
         <result property="status" column="status"/>
@@ -17,8 +18,8 @@
 
     <!-- 添加反馈 -->
     <insert id="addFeedback" parameterType="com.wangagain.wx.entity.miniprogram.Feedback">
-        insert into feedback (user_id, type, content, status, create_time)
-        values (#{userId}, #{type}, #{content}, #{status}, #{createTime})
+        insert into feedback (user_id, report_id, type, content, status, create_time)
+        values (#{userId}, #{reportId}, #{type}, #{content}, #{status}, #{createTime})
     </insert>
 
     <!-- 根据ID查询反馈 -->
@@ -41,6 +42,11 @@
     <!-- 根据用户ID查询反馈 -->
     <select id="getFeedbacksByUserId" parameterType="int" resultMap="feedbackMap">
         select * from feedback where user_id = #{userId} order by create_time desc
+    </select>
+    
+    <!-- 根据举报ID查询反馈 -->
+    <select id="getFeedbackByReportId" parameterType="int" resultMap="feedbackMap">
+        select * from feedback where report_id = #{reportId}
     </select>
 
 </mapper>

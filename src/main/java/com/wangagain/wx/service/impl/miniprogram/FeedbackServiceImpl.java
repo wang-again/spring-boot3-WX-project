@@ -89,4 +89,18 @@ public class FeedbackServiceImpl implements FeedbackService {
         }
     }
 
+    @Override
+    public ResultLogin getFeedbackByReportId(int reportId) {
+        try {
+            Feedback feedback = feedbackMapper.getFeedbackByReportId(reportId);
+            if (feedback != null) {
+                return new ResultLogin(1001, "查询成功", feedback);
+            } else {
+                return new ResultLogin(1000, "反馈不存在", null);
+            }
+        } catch (Exception e) {
+            return new ResultLogin(1002, "系统错误", null);
+        }
+    }
+
 }

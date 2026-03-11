@@ -19,14 +19,16 @@ public class FeedbackController {
     /**
      * 提交举报反馈
      * @param userId
+     * @param reportId
      * @param type
      * @param content
      * @return
      */
     @RequestMapping(value = "/submitFeedback", method = RequestMethod.POST)
-    public ResultLogin submitFeedback(int userId, String type, String content) {
+    public ResultLogin submitFeedback(int userId, int reportId, String type, String content) {
         Feedback feedback = new Feedback();
         feedback.setUserId(userId);
+        feedback.setReportId(reportId);
         feedback.setType(type);
         feedback.setContent(content);
         return feedbackService.submitFeedback(feedback);
@@ -75,6 +77,16 @@ public class FeedbackController {
     @RequestMapping(value = "/getFeedbacksByUserId", method = RequestMethod.GET)
     public ResultLogin getFeedbacksByUserId(int userId) {
         return feedbackService.getFeedbacksByUserId(userId);
+    }
+
+    /**
+     * 根据举报ID查询反馈
+     * @param reportId
+     * @return
+     */
+    @RequestMapping(value = "/getFeedbackByReportId", method = RequestMethod.GET)
+    public ResultLogin getFeedbackByReportId(int reportId) {
+        return feedbackService.getFeedbackByReportId(reportId);
     }
 
 }

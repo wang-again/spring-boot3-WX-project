@@ -38,5 +38,12 @@ public interface FeedbackService {
      * @return
      */
     public ResultLogin getFeedbacksByUserId(int userId);
+    
+    /**
+     * 根据举报ID查询反馈
+     * @param reportId
+     * @return
+     */
+    public ResultLogin getFeedbackByReportId(int reportId);
 
 }
