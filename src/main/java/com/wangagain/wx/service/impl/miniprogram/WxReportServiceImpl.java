@@ -1,9 +1,12 @@
 package com.wangagain.wx.service.impl.miniprogram;
+import com.wangagain.wx.entity.miniprogram.WxReport;
 import com.wangagain.wx.mapper.admin.AccountMapper;
 import com.wangagain.wx.mapper.miniprogram.WxReportMapper;
 import com.wangagain.wx.service.miniprogram.WxReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class WxReportServiceImpl implements WxReportService {
@@ -55,5 +58,25 @@ public class WxReportServiceImpl implements WxReportService {
             return -3;//服务器故障
         }
         return -4;//其他原因
+    }
+
+    @Override
+    public List<WxReport> getReportsByReporter(String reporter) {
+        try {
+            return wxReportMapper.findReportsByReporter(reporter);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public WxReport getReportById(int id) {
+        try {
+            return wxReportMapper.findReportById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
