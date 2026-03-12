@@ -40,12 +40,7 @@ public class WxProgramController {
     @RequestMapping(value = "/getMyReports", method = RequestMethod.GET)
     public ResultLogin getMyReports(String reporter) {
         try {
-            List<WxReport> reports = wxReportService.getReportsByReporter(reporter);
-            if (reports != null) {
-                return new ResultLogin(1001, "查询成功", reports);
-            } else {
-                return new ResultLogin(1000, "查询失败", null);
-            }
+            return wxReportService.getReportsByReporter(reporter);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultLogin(1002, "系统错误", null);
@@ -55,12 +50,7 @@ public class WxProgramController {
     @RequestMapping(value = "/getReportById", method = RequestMethod.GET)
     public ResultLogin getReportById(int id) {
         try {
-            WxReport report = wxReportService.getReportById(id);
-            if (report != null) {
-                return new ResultLogin(1001, "查询成功", report);
-            } else {
-                return new ResultLogin(1000, "举报记录不存在", null);
-            }
+            return wxReportService.getReportById(id);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultLogin(1002, "系统错误", null);

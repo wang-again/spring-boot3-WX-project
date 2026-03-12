@@ -15,7 +15,7 @@ public interface WxReportMapper {
     WxReport findReportById(@Param("id") int id);
     @Select("select * from report where reporter= #{reporter} order by create_time desc")
     java.util.List<WxReport> findReportsByReporter(@Param("reporter") String reporter);
-    @Insert("insert into report(reporter,type,content,status,location,media,phone) values(#{reporter},#{target},#{type},#{content},'pending',#{location},#{media},#{phone})")
+    @Insert("insert into report(reporter,type,content,status,location,media,phone) values(#{reporter},#{type},#{content},'pending',#{location},#{media},#{phone})")
     int insertReport(@Param("reporter") String reporter,@Param("type") String type, @Param("content") String content,@Param("location") String location, @Param("media") String media, @Param("phone") String phone);
     @Update("update report set status=#{status} where id=#{id}")
     int updateReportStatus(@Param("id") int id, @Param("status") String status);

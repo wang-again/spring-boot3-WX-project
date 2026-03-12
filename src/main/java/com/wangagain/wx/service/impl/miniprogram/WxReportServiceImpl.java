@@ -7,6 +7,9 @@ import com.wangagain.wx.service.miniprogram.WxReportService;
 import com.wangagain.wx.utils.ResultLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class WxReportServiceImpl implements WxReportService {
     @Autowired
@@ -19,15 +22,15 @@ public class WxReportServiceImpl implements WxReportService {
     public ResultLogin addReport(WxReport wxReport) {
         try {
             if (wxReportMapper.findReportIsExist(wxReport.getContent()) != null)
-                return new ResultLogin(1001, "内存存在", null);//内容存在
+                return new ResultLogin(1001, "内容存在", null);
             if (accountMapper.findUserExist(wxReport.getReporter()) == null)
-                return new ResultLogin(1003, "用户名不存在", null);//用户不存在
+                return new ResultLogin(1003, "用户名不存在", null);
             int rows = wxReportMapper.insertReport(wxReport.getReporter(), wxReport.getType(), wxReport.getContent(), wxReport.getLocation(), wxReport.getMedia(), wxReport.getPhone());
-            if (rows > 0) return new ResultLogin(1000, "提交陈工", wxReport);
+            if (rows > 0) return new ResultLogin(1000, "提交成功", wxReport);
         } catch (Exception e) {
-            return new ResultLogin(1004, "服务器故障", null);//服务器故障
+            return new ResultLogin(1004, "服务器故障", null);
         }
-        return new ResultLogin(1005, "其他原因", null);//其他原因
+        return new ResultLogin(1005, "其他原因", null);
     }
 
     @Override
@@ -40,27 +43,53 @@ public class WxReportServiceImpl implements WxReportService {
                     break;
                 }
             }
-            if (flagCheck) return new ResultLogin(1006, "状态不存在", null);//状态输入无效
+            if (flagCheck) return new ResultLogin(1006, "状态不存在", null);
             if (wxReportMapper.findReportById(wxReport.getId()) == null)
-                return new ResultLogin(1002, "内容不存在", null);//内容不存在
+                return new ResultLogin(1002, "内容不存在", null);
             int rows = wxReportMapper.updateReportStatus(wxReport.getId(), wxReport.getStatus());
-            if (rows > 0) return new ResultLogin(1000, "修改成功", wxReport); //修改成功
+            if (rows > 0) return new ResultLogin(1000, "修改成功", wxReport);
         } catch (Exception e) {
-            return new ResultLogin(1004, "服务器故障", null);//服务器故障
+            return new ResultLogin(1004, "服务器故障", null);
         }
-        return new ResultLogin(1005, "其他原因", null);//其他原因
+        return new ResultLogin(1005, "其他原因", null);
     }
 
     @Override
     public ResultLogin updateReportPhone(WxReport wxReport) {
         try {
             if (wxReportMapper.findReportById(wxReport.getId()) == null)
-                return new ResultLogin(1002, "内容不存在", null);//内容不存在
+                return new ResultLogin(1002, "内容不存在", null);
             int rows = wxReportMapper.updateReportPhone(wxReport.getId(), wxReport.getPhone());
-            if (rows > 0) return new ResultLogin(1000, "修改成功", wxReport);//修改成功
+            if (rows > 0) return new ResultLogin(1000, "修改成功", wxReport);
         } catch (Exception e) {
-            return new ResultLogin(1004, "服务器故障", null);//服务器故障
+            return new ResultLogin(1004, "服务器故障", null);
         }
-        return new ResultLogin(1005, "其他原因", null);//其他原因
+        return new ResultLogin(1005, "其他原因", null);
+    }
+
+    @Override
+    public ResultLogin getReportsByReporter(String reporter) {
+        try {
+            List<WxReport> reports = wxReportMapper.findReportsByReporter(reporter);
+            return new ResultLogin(1001, "查询成功", reports);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultLogin(1002, "系统错误", null);
+        }
+    }
+
+    @Override
+    public ResultLogin getReportById(int id) {
+        try {
+            WxReport report = wxReportMapper.findReportById(id);
+            if (report != null) {
+                return new ResultLogin(1001, "查询成功", report);
+            } else {
+                return new ResultLogin(1000, "举报记录不存在", null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultLogin(1002, "系统错误", null);
+        }
     }
 }

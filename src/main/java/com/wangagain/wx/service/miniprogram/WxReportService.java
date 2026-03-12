@@ -6,8 +6,9 @@ import com.wangagain.wx.utils.ResultLogin;
 import java.util.List;
 
 public interface WxReportService {
-    // 添加举报
     ResultLogin addReport(WxReport wxReport);
     ResultLogin updateReportStatus(WxReport wxReport);
     ResultLogin updateReportPhone(WxReport wxReport);
+    ResultLogin getReportsByReporter(String reporter);
+    ResultLogin getReportById(int id);
 }
