@@ -5,5 +5,5 @@ import com.wangagain.wx.utils.ResultLogin;
 public interface AccountService {
     ResultLogin login(String name, String password) throws Exception;
     ResultLogin register(String name, String password) throws Exception;
-    ResultLogin updatePassword(String name, String password) throws Exception;
+    ResultLogin updatePassword(String name, String oldPassword, String newPassword) throws Exception;
 }
