@@ -38,9 +38,14 @@ public class WxProgramController {
     }
 
     @RequestMapping(value = "/getMyReports", method = RequestMethod.GET)
-    public ResultLogin getMyReports(String reporter) {
+    public ResultLogin getMyReports(int user_id) {
         try {
-            return wxReportService.getReportsByReporter(reporter);
+            List<WxReport> reports = wxReportService.getReportsByUserId(user_id);
+            if (reports != null) {
+                return new ResultLogin(1001, "查询成功", reports);
+            } else {
+                return new ResultLogin(1000, "查询失败", null);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultLogin(1002, "系统错误", null);
@@ -50,7 +55,25 @@ public class WxProgramController {
     @RequestMapping(value = "/getReportById", method = RequestMethod.GET)
     public ResultLogin getReportById(int id) {
         try {
-            return wxReportService.getReportById(id);
+            WxReport report = wxReportService.getReportById(id);
+            if (report != null) {
+                return new ResultLogin(1001, "查询成功", report);
+            } else {
+                return new ResultLogin(1000, "举报记录不存在", null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultLogin(1002, "系统错误", null);
+        }
+    }
+
+    @RequestMapping(value = "/addReport", method = RequestMethod.POST)
+    public ResultLogin addReport(@org.springframework.web.bind.annotation.RequestBody WxReport wxReport) {
+        try {
+            if (wxReport.getUser_id() == null) {
+                return new ResultLogin(1003, "用户ID不能为空", null);
+            }
+            return wxReportService.addReport(wxReport);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultLogin(1002, "系统错误", null);

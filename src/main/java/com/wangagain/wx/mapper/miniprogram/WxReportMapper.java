@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 public interface WxReportMapper {
     @Select("select * from report where content=#{content}")
     WxReport findReportIsExist(@Param("content") String content);
-    @Select("select * from report where reporter= #{reporter}")
-    WxReport findReportByReporter(@Param("reporter") String reporter);
+    @Select("select * from report where user_id= #{user_id}")
+    WxReport findReportByUserId(@Param("user_id") int user_id);
     @Select("select * from report where id= #{id}")
     WxReport findReportById(@Param("id") int id);
-    @Select("select * from report where reporter= #{reporter} order by create_time desc")
-    java.util.List<WxReport> findReportsByReporter(@Param("reporter") String reporter);
-    @Insert("insert into report(reporter,type,content,status,location,media,phone) values(#{reporter},#{type},#{content},'pending',#{location},#{media},#{phone})")
-    int insertReport(@Param("reporter") String reporter,@Param("type") String type, @Param("content") String content,@Param("location") String location, @Param("media") String media, @Param("phone") String phone);
+    @Select("select * from report where user_id= #{user_id} order by create_time desc")
+    java.util.List<WxReport> findReportsByUserId(@Param("user_id") int user_id);
+    @Insert("insert into report(user_id,type,content,status,location,media,phone) values(#{user_id},#{type},#{content},'pending',#{location},#{media},#{phone})")
+    int insertReport(@Param("user_id") int user_id,@Param("type") String type, @Param("content") String content,@Param("location") String location, @Param("media") String media, @Param("phone") String phone);
     @Update("update report set status=#{status} where id=#{id}")
     int updateReportStatus(@Param("id") int id, @Param("status") String status);
     @Update("update report set phone=#{phone} where id=#{id}")

@@ -7,7 +7,7 @@
     <select id="findByOpenid" parameterType="java.lang.String" resultType="com.wangagain.wx.entity.miniprogram.WxUser">
         select * from wx_user where openid = #{openid}
     </select>
-    <insert id="insert" parameterType="com.wangagain.wx.entity.miniprogram.WxUser">
+    <insert id="insert" parameterType="com.wangagain.wx.entity.miniprogram.WxUser" useGeneratedKeys="true" keyProperty="id">
         insert into wx_user (openid, token, nickname, create_time) values (#{openid}, #{token}, #{nickname}, #{createTime})
     </insert>
     <update id="update" parameterType="com.wangagain.wx.entity.miniprogram.WxUser">
