@@ -48,6 +48,28 @@ public class AccountController {
         return new ResultLogin(1002, "验证码生成成功", captchaInfo.getImage());
     }
 
+    // 修改密码 - POST方法
+    @PostMapping("/updatePassword")
+    public ResultLogin updatePasswordPost(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
+        try {
+            System.out.println("修改密码，用户名：" + updatePasswordRequest.getName());
+            return accountService.updatePassword(updatePasswordRequest.getName(), updatePasswordRequest.getOldPassword(), updatePasswordRequest.getNewPassword());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // 修改密码 - GET方法
+    @GetMapping("/updatePassword")
+    public ResultLogin updatePasswordGet(String name, String oldPassword, String newPassword) {
+        try {
+            System.out.println("修改密码，用户名：" + name);
+            return accountService.updatePassword(name, oldPassword, newPassword);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // 登录请求对象
     public static class LoginRequest {
         private String name;
@@ -76,6 +98,37 @@ public class AccountController {
 
         public void setCode(String code) {
             this.code = code;
+        }
+    }
+
+    // 修改密码请求对象
+    public static class UpdatePasswordRequest {
+        private String name;
+        private String oldPassword;
+        private String newPassword;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getOldPassword() {
+            return oldPassword;
+        }
+
+        public void setOldPassword(String oldPassword) {
+            this.oldPassword = oldPassword;
+        }
+
+        public String getNewPassword() {
+            return newPassword;
+        }
+
+        public void setNewPassword(String newPassword) {
+            this.newPassword = newPassword;
         }
     }
 }

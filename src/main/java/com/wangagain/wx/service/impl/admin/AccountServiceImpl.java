@@ -52,16 +52,24 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    @Override
-    public ResultLogin updatePassword(String name, String password) {
+    public ResultLogin updatePassword(String name, String oldPassword, String newPassword) {
         try{
-            String encodePwd = passwordEncoder.encode(password);
             Account user = accountMapper.findUserExist(name);
-            if (passwordEncoder.matches(password, user.getuPwd()))
-            return new ResultLogin(1004,"修改密码不能原密码相同",null);
+            if (user == null) {
+                return new ResultLogin(1000, "用户名不存在", null);
+            }
+            // 验证旧密码
+            if (!passwordEncoder.matches(oldPassword, user.getuPwd())) {
+                return new ResultLogin(1001, "旧密码错误", null);
+            }
+            // 检查新密码是否与旧密码相同
+            if (passwordEncoder.matches(newPassword, user.getuPwd())) {
+                return new ResultLogin(1004, "新密码不能与原密码相同", null);
+            }
+            String encodePwd = passwordEncoder.encode(newPassword);
             int i = accountMapper.updatePassword(user.getuId(), encodePwd);
             user.setuPwd(encodePwd);
-            return (i>0)?new ResultLogin(1000,"密码修改成功",user):new ResultLogin(1002,"其他元婴",null);
+            return (i>0)?new ResultLogin(1000,"密码修改成功",user):new ResultLogin(1002,"其他原因",null);
         }catch (Exception e){
             return new ResultLogin(1003,"数据库故障",null);
         }
