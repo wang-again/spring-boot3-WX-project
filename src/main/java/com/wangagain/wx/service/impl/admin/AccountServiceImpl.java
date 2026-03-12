@@ -16,7 +16,7 @@ public class AccountServiceImpl implements AccountService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public ResultLogin login(String name, String password) throws Exception {
+    public ResultLogin login(String name, String password) {
         try {
             Account user = accountMapper.findUserExist(name);
             if (user == null) {
@@ -51,4 +51,20 @@ public class AccountServiceImpl implements AccountService {
             return new ResultLogin(1003, "系统错误，请联系管理员", null);
         }
     }
+
+    @Override
+    public ResultLogin updatePassword(String name, String password) {
+        try{
+            String encodePwd = passwordEncoder.encode(password);
+            Account user = accountMapper.findUserExist(name);
+            if (passwordEncoder.matches(password, user.getuPwd()))
+            return new ResultLogin(1004,"修改密码不能原密码相同",null);
+            int i = accountMapper.updatePassword(user.getuId(), encodePwd);
+            user.setuPwd(encodePwd);
+            return (i>0)?new ResultLogin(1000,"密码修改成功",user):new ResultLogin(1002,"其他元婴",null);
+        }catch (Exception e){
+            return new ResultLogin(1003,"数据库故障",null);
+        }
+    }
+
 }
