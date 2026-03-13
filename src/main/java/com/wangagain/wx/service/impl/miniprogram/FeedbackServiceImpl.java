@@ -22,9 +22,7 @@ public class FeedbackServiceImpl implements FeedbackService {
             // 设置默认状态和创建时间
             feedback.setStatus("待处理");
             feedback.setCreateTime(new Date());
-            System.out.println("提交反馈前：" + feedback);
             int result = feedbackMapper.addFeedback(feedback);
-            System.out.println("提交反馈结果：" + result);
             if (result > 0) {
                 return new ResultLogin(1001, "提交成功", feedback);
             } else {

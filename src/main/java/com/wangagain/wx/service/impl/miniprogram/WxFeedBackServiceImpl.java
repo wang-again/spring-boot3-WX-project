@@ -16,7 +16,6 @@ public class WxFeedBackServiceImpl implements WxFeedBackService {
     @Override
     public int addFeedBack(int report_id, String content) {
         try {
-
             if (wxReportMapper.findReportById(report_id) == null)
                 return -1; // 举报不存在
             if (wxFeedBackMapper.findFeedBackByReportId(report_id) != null)
