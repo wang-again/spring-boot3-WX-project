@@ -21,5 +21,8 @@ public interface WxReportMapper {
     int updateReportStatus(@Param("id") int id, @Param("status") String status);
     @Update("update report set phone=#{phone} where id=#{id}")
     int updateReportPhone(@Param("id") int id,@Param("phone") String phone);
+    
+    @Select("select * from report order by create_time desc")
+    java.util.List<WxReport> findAllReports();
 
 }

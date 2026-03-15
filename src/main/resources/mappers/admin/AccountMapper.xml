@@ -21,7 +21,7 @@
     </resultMap>
 
     <select id="login" resultMap="accountMap">
-        SELECT uId,uName,uPwd FROM account WHERE uName = #{uName} and uPwd=#{uPwd}
+        SELECT uId,uName,uPwd FROM account WHERE uName = #{uName}
     </select>
     
     <insert id="register">

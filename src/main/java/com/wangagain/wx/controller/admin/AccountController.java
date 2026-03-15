@@ -33,9 +33,16 @@ public class AccountController {
 
         // 调用业务层
         try {
-            return accountService.login(loginRequest.getName(), loginRequest.getPassword());
+            ResultLogin result = accountService.login(loginRequest.getName(), loginRequest.getPassword());
+            if (result.getCode() == 1002) { // 登录成功
+                // 存储用户信息到session
+                session.setAttribute("user", result.getData());
+                session.setAttribute("isLoggedIn", true);
+            }
+            return result;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return new ResultLogin(1003, "系统错误，请联系管理员", null);
         }
     }
 
@@ -50,23 +57,42 @@ public class AccountController {
 
     // 修改密码 - POST方法
     @PostMapping("/updatePassword")
-    public ResultLogin updatePasswordPost(@RequestBody UpdatePasswordRequest updatePasswordRequest) {
+    public ResultLogin updatePasswordPost(@RequestBody UpdatePasswordRequest updatePasswordRequest, HttpSession session) {
         try {
-            System.out.println("修改密码，用户名：" + updatePasswordRequest.getName());
-            return accountService.updatePassword(updatePasswordRequest.getName(), updatePasswordRequest.getOldPassword(), updatePasswordRequest.getNewPassword());
+            System.out.println("修改密码请求：用户名=" + updatePasswordRequest.getName() + ", 旧密码长度=" + (updatePasswordRequest.getOldPassword() != null ? updatePasswordRequest.getOldPassword().length() : 0) + ", 新密码长度=" + (updatePasswordRequest.getNewPassword() != null ? updatePasswordRequest.getNewPassword().length() : 0));
+            ResultLogin result = accountService.updatePassword(updatePasswordRequest.getName(), updatePasswordRequest.getOldPassword(), updatePasswordRequest.getNewPassword());
+            System.out.println("修改密码结果：" + result.getCode() + "-" + result.getMsg());
+            
+            if (result.getCode() == 1000) { // 密码修改成功
+                // 清除登录状态
+                session.invalidate();
+                System.out.println("密码修改成功，已清除登录状态");
+            }
+            
+            return result;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return new ResultLogin(1003, "系统错误，请联系管理员", null);
         }
     }
 
     // 修改密码 - GET方法
     @GetMapping("/updatePassword")
-    public ResultLogin updatePasswordGet(String name, String oldPassword, String newPassword) {
+    public ResultLogin updatePasswordGet(String name, String oldPassword, String newPassword, HttpSession session) {
         try {
             System.out.println("修改密码，用户名：" + name);
-            return accountService.updatePassword(name, oldPassword, newPassword);
+            ResultLogin result = accountService.updatePassword(name, oldPassword, newPassword);
+            
+            if (result.getCode() == 1000) { // 密码修改成功
+                // 清除登录状态
+                session.invalidate();
+                System.out.println("密码修改成功，已清除登录状态");
+            }
+            
+            return result;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return new ResultLogin(1003, "系统错误，请联系管理员", null);
         }
     }
 
